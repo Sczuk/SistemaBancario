@@ -4,11 +4,11 @@ import model.pessoa.Pessoa;
 
 public interface InterfaceClienteRepository {
 
-    void create(Pessoa pessoa);
+    boolean createCliente(Pessoa pessoa);
 
-    void delete(int id);
+    boolean deleteCliente(int id);
 
-    void update(Pessoa pessoa, int id);
+    boolean updateClienteName(Pessoa pessoa, int id);
 
     Pessoa getCliente(int id);
 
