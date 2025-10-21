@@ -12,11 +12,8 @@ public interface InterfaceContaRepository {
 
     void depositar(int id, double quantia);
 
-    void tranferir(int id, double quantia);
+    void tranferir(Conta remetente,int destinatarioId, double quantia);
 
     Conta getConta(int id);
-
-    Double getSaldo(int id);
-
-    boolean getStatus(int id);
+    
 }
