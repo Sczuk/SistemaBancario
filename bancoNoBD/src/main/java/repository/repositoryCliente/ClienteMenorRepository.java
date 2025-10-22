@@ -1,25 +1,76 @@
 package repository.repositoryCliente;
 
+import config.ConnectionDataBase;
 import model.pessoa.Pessoa;
+import model.pessoa.clientes.ClienteMenor;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ClienteMenorRepository implements InterfaceClienteRepository{
     @Override
     public boolean createCliente(Pessoa pessoa) {
+        String sql = "Insert into clienteMenor(nome,cpf,dataDeNascimento,idade) Values(?,?,?,?)";
+
+        try (Connection conn = ConnectionDataBase.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setString(1,pessoa.getNome());
+            stmt.setString(2,pessoa.getCpf());
+            stmt.setString(3,pessoa.getDataDeNascimento());
+            stmt.setInt(4,pessoa.getIdade());
+            if(stmt.executeUpdate() == 1) return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
     @Override
     public boolean deleteCliente(int id) {
+        String sql = "Delete from clienteMenor where id=?";
+
+        try(Connection conn = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setInt(1,id);
+            if(stmt.executeUpdate()==1)return true;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         return false;
     }
 
     @Override
     public boolean updateClienteName(Pessoa pessoa, int id) {
+        String sql = "Insert into clienteMenor(nome) values(?) where id=?";
+
+        try(Connection conn = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setString(1,pessoa.getNome());
+            stmt.setInt(2, id);
+            if(stmt.executeUpdate()==1)return true;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
         return false;
     }
 
     @Override
     public Pessoa getCliente(int id) {
-        return null;
+        String sql = "Select * from clienteMenor where id=?";
+        Pessoa cliente = null;
+
+        try(Connection conn = ConnectionDataBase.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setInt(1,id);
+            stmt.executeUpdate();
+            try(ResultSet rs = stmt.executeQuery(sql)){
+                cliente = new ClienteMenor(rs.getNString("nome"),rs.getNString("cpf"),rs.getNString("dataDeNascimento"),rs.getInt("id"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return cliente;
     }
 }
