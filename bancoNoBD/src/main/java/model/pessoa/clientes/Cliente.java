@@ -14,4 +14,15 @@ public class Cliente extends Pessoa {
         this.id = id;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "nome: "+getNome()+
+                "cpf: "+getCpf()+
+                "data de nascimento: "+getDataDeNascimento()+
+                "id: "+getId();
+    }
 }
