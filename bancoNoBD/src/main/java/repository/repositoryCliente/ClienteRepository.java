@@ -9,12 +9,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ClienteRepository implements InterfaceClienteRepository{
+public class ClienteRepository {
 
-    @Override
-    public Pessoa getCliente(int id) {
+    public static Cliente getCliente(int id) {
         String sql = "Select * from cliente where id=?";
-        Pessoa cliente = null;
+        Cliente cliente = null;
 
         try(Connection conn = ConnectionDataBase.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)){
@@ -29,13 +28,12 @@ public class ClienteRepository implements InterfaceClienteRepository{
         return cliente;
     }
 
-    @Override
-    public boolean updateClienteName(Pessoa pessoa, int id) {
+    public static boolean updateClienteName(Cliente cliente, int id) {
         String sql = "Insert into cliente(name) value(?) where id=?";
 
         try(Connection conn = ConnectionDataBase.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)){
-            stmt.setString(1, pessoa.getNome());
+            stmt.setString(1, cliente.getNome());
             stmt.setInt(2,id);
             if(stmt.executeUpdate()==1) return true;
         }catch (SQLException e){
@@ -44,8 +42,7 @@ public class ClienteRepository implements InterfaceClienteRepository{
         return false;
     }
 
-    @Override
-    public boolean deleteCliente(int id) {
+    public static boolean deleteCliente(int id) {
         String sql = "Delete from cliente where id=?";
 
         try(Connection conn = ConnectionDataBase.getConnection();
@@ -58,8 +55,8 @@ public class ClienteRepository implements InterfaceClienteRepository{
         return false;
     }
 
-    @Override
-    public boolean createCliente(Pessoa pessoa) {
+
+    public static boolean createCliente(Pessoa pessoa) {
         String sql = "Insert Into cliente(nome,cpf,dataDeNascimento,idade) Values (?,?,?,?)";
 
         try(Connection conn = ConnectionDataBase.getConnection();
