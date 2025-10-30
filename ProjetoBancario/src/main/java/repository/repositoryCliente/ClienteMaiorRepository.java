@@ -2,7 +2,7 @@ package repository.repositoryCliente;
 
 import config.ConnectionDataBase;
 import model.pessoa.Pessoa;
-import model.pessoa.clientes.Cliente;
+import model.pessoa.clientes.ClienteMaior;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,29 +11,29 @@ import java.sql.SQLException;
 
 public class ClienteMaiorRepository {
 
-    public static Cliente getCliente(int id) {
+    public static ClienteMaior getCliente(int id) {
         String sql = "Select * from cliente where id=?";
-        Cliente cliente = null;
+        ClienteMaior clienteMaior = null;
 
         try(Connection conn = ConnectionDataBase.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setInt(1,id);
             try(ResultSet rs = stmt.executeQuery()){
                if(!rs.next())return null;
-               cliente = new Cliente(rs.getNString("nome"), rs.getNString("cpf"), rs.getNString("dataDeNascimento"),rs.getInt("idade"),rs.getInt("id"));
+               clienteMaior = new ClienteMaior(rs.getNString("nome"), rs.getNString("cpf"), rs.getNString("dataDeNascimento"),rs.getInt("idade"),rs.getInt("id"));
             }
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return cliente;
+        return clienteMaior;
     }
 
-    public static boolean updateClienteName(Cliente cliente, int id) {
+    public static boolean updateClienteName(ClienteMaior clienteMaior, int id) {
         String sql = "UPDATE cliente set nome=? where id=?";
 
         try(Connection conn = ConnectionDataBase.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)){
-            stmt.setString(1, cliente.getNome());
+            stmt.setString(1, clienteMaior.getNome());
             stmt.setInt(2,id);
             if(stmt.executeUpdate()==1) return true;
         }catch (SQLException e){
@@ -56,15 +56,15 @@ public class ClienteMaiorRepository {
     }
 
 
-    public static boolean createCliente(Pessoa pessoa) {
+    public static boolean createCliente(ClienteMaior clienteMaior) {
         String sql = "Insert Into cliente(nome,cpf,dataDeNascimento,idade) Values (?,?,?,?)";
 
         try(Connection conn = ConnectionDataBase.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)){
-            stmt.setString(1, pessoa.getNome());
-            stmt.setString(2, pessoa.getCpf());
-            stmt.setString(3, pessoa.getDataDeNascimento());
-            stmt.setInt(4,pessoa.getIdade());
+            stmt.setString(1, clienteMaior.getNome());
+            stmt.setString(2, clienteMaior.getCpf());
+            stmt.setString(3, clienteMaior.getDataDeNascimento());
+            stmt.setInt(4,clienteMaior.getIdade());
             if(stmt.executeUpdate()==1) return true;
         }catch (SQLException e){
             e.printStackTrace();

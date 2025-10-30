@@ -5,14 +5,18 @@ import model.pessoa.Pessoa;
 
 import java.util.List;
 
-public class Cliente extends Pessoa {
+public class ClienteMaior extends Pessoa {
     private List<Conta> contas;
     private int id;
 
-    public Cliente(String nome, String cpf, String dataDeNascimento,int idade, int id) {
+    public ClienteMaior(String nome, String cpf, String dataDeNascimento, int idade, int id) {
         super(nome, cpf, dataDeNascimento,idade);
         this.id = id;
     }
+    public ClienteMaior(String nome, String cpf, String dataDeNascimento, int idade) {
+        super(nome, cpf, dataDeNascimento,idade);
+    }
+
 
     public int getId() {
         return id;

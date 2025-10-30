@@ -3,27 +3,33 @@ package controller.clienteController;
 import model.pessoa.Pessoa;
 import service.serviceCliente.ClienteValidationService;
 
+import static java.lang.Character.isUpperCase;
+
 public class ClienteValidationController {
 
     public static boolean clienteValidationCadastro(Pessoa pessoa){
-        //adicionar as validaçoes que esta no seu cll
-        if(pessoa.getNome().trim().isEmpty()||pessoa.getNome().trim().length()==2) throw new NullPointerException("Nome Invalido");
+        if(pessoa.getNome().trim().isEmpty()||pessoa.getNome().trim().length()==2) throw new IllegalArgumentException("Nome Invalido");
         if(pessoa.getCpf().length()!=12) throw new IllegalArgumentException("Cpf deve estar nesse formato 'xxxxxxxxx-xx'");
-        if(pessoa.getDataDeNascimento().length()!=10||!ClienteValidationController.validacaoDataDeNascimento(pessoa.getDataDeNascimento())) throw new IllegalArgumentException("Data de nascimento deve estar nesse formato 00/00/0000");
+        if(ClienteValidationController.validacaoDataDeNascimento(pessoa)<1930)throw new IllegalArgumentException("Idade invalida");
+        if(pessoa.getDataDeNascimento().length()!=10||ClienteValidationController.validacaoDataDeNascimento(pessoa)==0) throw new IllegalArgumentException("Data de nascimento deve estar nesse formato 00/00/0000");
         return ClienteValidationService.validationCadastroCliente(new Pessoa(ClienteValidationController.formatandoNome(pessoa), pessoa.getCpf(), pessoa.getDataDeNascimento()));
     }
 
-    private static String formatandoNome(Pessoa pessoa){
-        //atualizar
-        String primeiraLetra = pessoa.getNome().substring(0,1).toUpperCase();
-        String palavra = pessoa.getNome().substring(1);
-        String nomeComLetraMaiscula = primeiraLetra+palavra;
-        return nomeComLetraMaiscula;
+    public static String formatandoNome(Pessoa pessoa){
+        String nomeCompleto = "";
+        String letra;
+        String[] nomes = pessoa.getNome().split(" ");
+        for (String nome : nomes) {
+            char c = nome.charAt(0);
+            letra = c + "";
+            nomeCompleto += letra.toUpperCase() + nome.substring(1) + " ";
+        }
+        return nomeCompleto;
     }
 
-    private static boolean validacaoDataDeNascimento(String dataDeNascimento){
+    private static int validacaoDataDeNascimento(Pessoa dataDeNascimento){
         //atualizar, trocar a string por pessoa.getData...
-        char[] dataArray = dataDeNascimento.trim().toCharArray();
+        char[] dataArray = dataDeNascimento.getDataDeNascimento().trim().toCharArray();
         String anoString = "";
         int ano = 0;
 
@@ -33,11 +39,11 @@ public class ClienteValidationController {
 
         try{
             ano = Integer.parseInt(anoString);
-            return true;
+            return ano;
         }catch (NumberFormatException e){
             e.getMessage();
         }
 
-        return false;
+        return ano;
     }
 }
