@@ -28,12 +28,12 @@ public class ClienteMaiorRepository {
         return cliente;
     }
 
-    public static boolean updateClienteName(String nome, int id) {
+    public static boolean updateClienteName(Cliente cliente, int id) {
         String sql = "UPDATE cliente set nome=? where id=?";
 
         try(Connection conn = ConnectionDataBase.getConnection();
         PreparedStatement stmt = conn.prepareStatement(sql)){
-            stmt.setString(1,nome);
+            stmt.setString(1, cliente.getNome());
             stmt.setInt(2,id);
             if(stmt.executeUpdate()==1) return true;
         }catch (SQLException e){

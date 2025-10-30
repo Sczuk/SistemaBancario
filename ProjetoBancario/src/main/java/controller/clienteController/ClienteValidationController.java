@@ -6,14 +6,15 @@ import service.serviceCliente.ClienteValidationService;
 public class ClienteValidationController {
 
     public static boolean clienteValidationCadastro(Pessoa pessoa){
+        //adicionar as validaçoes que esta no seu cll
         if(pessoa.getNome().trim().isEmpty()||pessoa.getNome().trim().length()==2) throw new NullPointerException("Nome Invalido");
         if(pessoa.getCpf().length()!=12) throw new IllegalArgumentException("Cpf deve estar nesse formato 'xxxxxxxxx-xx'");
         if(pessoa.getDataDeNascimento().length()!=10||!ClienteValidationController.validacaoDataDeNascimento(pessoa.getDataDeNascimento())) throw new IllegalArgumentException("Data de nascimento deve estar nesse formato 00/00/0000");
-        if(ClienteValidationService.validationCadastroCliente(new Pessoa(ClienteValidationController.formatandoNome(pessoa), pessoa.getCpf(), pessoa.getDataDeNascimento()))) return true;
-        return false;
+        return ClienteValidationService.validationCadastroCliente(new Pessoa(ClienteValidationController.formatandoNome(pessoa), pessoa.getCpf(), pessoa.getDataDeNascimento()));
     }
 
     private static String formatandoNome(Pessoa pessoa){
+        //atualizar
         String primeiraLetra = pessoa.getNome().substring(0,1).toUpperCase();
         String palavra = pessoa.getNome().substring(1);
         String nomeComLetraMaiscula = primeiraLetra+palavra;
@@ -21,6 +22,7 @@ public class ClienteValidationController {
     }
 
     private static boolean validacaoDataDeNascimento(String dataDeNascimento){
+        //atualizar, trocar a string por pessoa.getData...
         char[] dataArray = dataDeNascimento.trim().toCharArray();
         String anoString = "";
         int ano = 0;

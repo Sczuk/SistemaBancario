@@ -1,6 +1,7 @@
 package controller.clienteController;
 
 import model.pessoa.clientes.Cliente;
+import model.pessoa.clientes.ClienteMenor;
 
 public class ClienteMenorController {
 
@@ -12,7 +13,8 @@ public class ClienteMenorController {
         return null;
     }
 
-    public static boolean updateClienteName(String name, int id){
+    public static boolean updateClienteName(ClienteMenor cliente, int id){
+        //passar pela formataçao de nome
         return false;
     }
 }

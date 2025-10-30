@@ -24,9 +24,9 @@ public class ClienteMenorService {
         return clienteMenor;
     }
 
-    public static boolean updateClienteName(String nome, int id){
+    public static boolean updateClienteName(ClienteMenor cliente, int id){
         if(ClienteMenorRepository.getCliente(id)==null) throw new IllegalArgumentException("Id nao correspondente a nenhum Cliente");
-        boolean clienteAtualizado = ClienteMenorRepository.updateClienteName(nome, id);
+        boolean clienteAtualizado = ClienteMenorRepository.updateClienteName(cliente.getNome(), id);
         return clienteAtualizado;
     }
 }
