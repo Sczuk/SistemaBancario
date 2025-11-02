@@ -1,19 +1,24 @@
 package test;
 
 
-import controller.clienteController.ClienteValidationController;
-import model.pessoa.Pessoa;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import controller.cliente.ClienteMaiorController;
+import controller.cliente.ClienteValidationController;
+import entity.conta.Conta;
+import entity.conta.ContaCorrente;
+import entity.pessoa.Pessoa;
+import entity.pessoa.clientes.ClienteMaior;
+import repository.conta.ContaCorrenteRepository;
+import repository.conta.createConta.contaMaior.ContaCorrenteMaiorRepository;
 
 
 public class test {
     public static void main(String[] args) {
-        Pessoa pessoa = new Pessoa("henrique gabriel rea sczuk","123456789-00","21/03/2008");
+        ContaCorrente conta = ContaCorrenteMaiorRepository.getConta(4);
 
-        System.out.println(ClienteValidationController.formatandoNome(pessoa));
+        System.out.println(conta);
+
+        int idCliente = conta.getIdCliente();
+
+        System.out.println(ClienteMaiorController.getCliente(idCliente));
     }
 }
