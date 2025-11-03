@@ -1,14 +1,14 @@
 package service.cliente;
 
-import entity.pessoa.Pessoa;
+import entity.pessoa.clientes.Cliente;
 import entity.pessoa.clientes.ClienteMenor;
 import repository.cliente.ClienteMenorRepository;
 
 public class ClienteMenorService {
 
-    public static boolean cadastrarClienteMenor(Pessoa pessoa){
-        pessoa.setIdade(ClienteValidationService.getIdade(pessoa.getDataDeNascimento()));
-        boolean clienteCriado = ClienteMenorRepository.createCliente(pessoa);
+    public static boolean cadastrarClienteMenor(Cliente cliente){
+        cliente.setIdade(ClienteValidationService.getIdade(cliente.getDataDeNascimento()));
+        boolean clienteCriado = ClienteMenorRepository.createCliente(cliente);
         return clienteCriado;
     }
 

@@ -5,6 +5,7 @@ import entity.conta.ContaCorrente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ContaCorrenteMenorRepository  {
@@ -23,6 +24,23 @@ public class ContaCorrenteMenorRepository  {
         }catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public static ContaCorrente getContaCorrente(int id) {
+        String sql = "select * from contacorrente where id=?";
+        ContaCorrente contaCorrente = null;
+
+        try(Connection conn = ConnectionDataBase.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+            stmt.setInt(1,id);
+            try(ResultSet rs = stmt.executeQuery()){
+                rs.next();
+                contaCorrente = new ContaCorrente(rs.getDouble("saldo"),rs.getDouble("limiteSaldo"),rs.getDouble("limiteSaque"),rs.getBoolean("estado"),rs.getInt("id"),rs.getInt("id_clienteMenor"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return contaCorrente;
     }
 
 }

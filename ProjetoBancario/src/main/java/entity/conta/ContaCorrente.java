@@ -1,22 +1,14 @@
 package entity.conta;
 
-import entity.pessoa.clientes.ClienteMaior;
+import entity.pessoa.clientes.Cliente;
 import entity.pessoa.clientes.ClienteMenor;
 
 public class ContaCorrente extends Conta{
     private double limeteSaldo;
     private double limeteSaque;
 
-    //construtor para criaçao da contaMaior
-    public ContaCorrente(double limeteSaldo, double limeteSaque, ClienteMaior clienteMaior){
-        super(0,false,clienteMaior.getId());
-        this.limeteSaldo = limeteSaldo;
-        this.limeteSaque = limeteSaque;
-    }
-
-    //construtor para criaçao da contaMenor
-    public ContaCorrente(double limeteSaldo, double limeteSaque, ClienteMenor clienteMenor){
-        super(0,false,clienteMenor.getId());
+    public ContaCorrente(double limeteSaldo, double limeteSaque, Cliente cliente){
+        super(0,false,cliente.getId());
         this.limeteSaldo = limeteSaldo;
         this.limeteSaque = limeteSaque;
     }

@@ -1,24 +1,24 @@
 package controller.cliente;
 
-import entity.pessoa.Pessoa;
+import entity.pessoa.clientes.Cliente;
 import service.cliente.ClienteValidationService;
 
 import static java.lang.Character.isUpperCase;
 
 public class ClienteValidationController {
 
-    public static boolean clienteValidationCadastro(Pessoa pessoa){
-        if(pessoa.getNome().trim().isEmpty()||pessoa.getNome().trim().length()==2) throw new IllegalArgumentException("Nome Invalido");
-        if(pessoa.getCpf().length()!=12) throw new IllegalArgumentException("Cpf deve estar nesse formato 'xxxxxxxxx-xx'");
-        if(ClienteValidationController.validacaoDataDeNascimento(pessoa)<1930)throw new IllegalArgumentException("Idade invalida");
-        if(pessoa.getDataDeNascimento().length()!=10||ClienteValidationController.validacaoDataDeNascimento(pessoa)==0) throw new IllegalArgumentException("Data de nascimento deve estar nesse formato 00/00/0000");
-        return ClienteValidationService.validationCadastroCliente(new Pessoa(ClienteValidationController.formatandoNome(pessoa), pessoa.getCpf(), pessoa.getDataDeNascimento()));
+    public static boolean clienteValidationCadastro(Cliente cliente){
+        if(cliente.getNome().trim().isEmpty()||cliente.getNome().trim().length()==2) throw new IllegalArgumentException("Nome Invalido");
+        if(cliente.getCpf().length()!=12) throw new IllegalArgumentException("Cpf deve estar nesse formato 'xxxxxxxxx-xx'");
+        if(ClienteValidationController.validacaoDataDeNascimento(cliente)<1930)throw new IllegalArgumentException("Idade invalida");
+        if(cliente.getDataDeNascimento().length()!=10||ClienteValidationController.validacaoDataDeNascimento(cliente)==0) throw new IllegalArgumentException("Data de nascimento deve estar nesse formato 00/00/0000");
+        return ClienteValidationService.validationCadastroCliente(new Cliente(ClienteValidationController.formatandoNome(cliente), cliente.getCpf(), cliente.getDataDeNascimento()));
     }
 
-    public static String formatandoNome(Pessoa pessoa){
+    public static String formatandoNome(Cliente cliente){
         String nomeCompleto = "";
         String letra;
-        String[] nomes = pessoa.getNome().split(" ");
+        String[] nomes = cliente.getNome().split(" ");
         for (String nome : nomes) {
             char c = nome.charAt(0);
             letra = c + "";
@@ -27,7 +27,7 @@ public class ClienteValidationController {
         return nomeCompleto;
     }
 
-    private static int validacaoDataDeNascimento(Pessoa dataDeNascimento){
+    private static int validacaoDataDeNascimento(Cliente dataDeNascimento){
         //atualizar, trocar a string por pessoa.getData...
         char[] dataArray = dataDeNascimento.getDataDeNascimento().trim().toCharArray();
         String anoString = "";

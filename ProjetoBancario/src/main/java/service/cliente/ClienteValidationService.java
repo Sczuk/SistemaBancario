@@ -1,6 +1,7 @@
 package service.cliente;
 
 import entity.pessoa.Pessoa;
+import entity.pessoa.clientes.Cliente;
 import repository.cliente.ClienteRepository;
 
 import java.util.List;
@@ -30,19 +31,19 @@ public class ClienteValidationService {
         return idade;
     }
 
-    public static boolean validationCadastroCliente(Pessoa pessoa){
-        List<Pessoa> pessoas = ClienteRepository.getCpfs();
-        for(Pessoa p : pessoas){
-            if(p.getCpf().equals(pessoa.getCpf()))throw new IllegalArgumentException("Cpf invalido");
+    public static boolean validationCadastroCliente(Cliente cliente){
+        List<Cliente> clientes = ClienteRepository.getCpfs();
+        for(Cliente c : clientes){
+            if(c.getCpf().equals(cliente.getCpf()))throw new IllegalArgumentException("Cpf invalido");
         }
 
-        if(ClienteValidationService.getIdade(pessoa.getDataDeNascimento()) > 17) {
-            ClienteMaiorService.cadastrarCliente(pessoa);
+        if(ClienteValidationService.getIdade(cliente.getDataDeNascimento()) > 17) {
+            ClienteMaiorService.cadastrarCliente(cliente);
             return true;
         }
 
-        if(ClienteValidationService.getIdade(pessoa.getDataDeNascimento()) < 18) {
-            ClienteMenorService.cadastrarClienteMenor(pessoa);
+        if(ClienteValidationService.getIdade(cliente.getDataDeNascimento()) < 18) {
+            ClienteMenorService.cadastrarClienteMenor(cliente);
             return true;
         }else{
             return false;

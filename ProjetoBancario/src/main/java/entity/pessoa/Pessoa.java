@@ -1,6 +1,6 @@
 package entity.pessoa;
 
-public class Pessoa {
+public abstract class Pessoa {
     private String nome;
     private String cpf;
     private String dataDeNascimento;
@@ -11,10 +11,12 @@ public class Pessoa {
         this.cpf = cpf;
         this.dataDeNascimento = dataDeNascimento;
     }
+
     public Pessoa(String nome, String cpf, String dataDeNascimento,int idade){
         this(nome, cpf, dataDeNascimento);
         this.idade=idade;
     }
+
     public Pessoa(String cpf){
         this.cpf = cpf;
     }

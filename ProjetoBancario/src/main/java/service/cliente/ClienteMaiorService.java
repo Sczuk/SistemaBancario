@@ -2,14 +2,15 @@ package service.cliente;
 
 
 import entity.pessoa.Pessoa;
+import entity.pessoa.clientes.Cliente;
 import entity.pessoa.clientes.ClienteMaior;
 import repository.cliente.ClienteMaiorRepository;
 
 
 public class ClienteMaiorService {
 
-    public static boolean cadastrarCliente(Pessoa pessoa) {
-        return ClienteMaiorRepository.createCliente(new ClienteMaior(pessoa.getNome(), pessoa.getCpf(), pessoa.getDataDeNascimento(),ClienteValidationService.getIdade(pessoa.getDataDeNascimento())));
+    public static boolean cadastrarCliente(Cliente cliente) {
+        return ClienteMaiorRepository.createCliente(new ClienteMaior(cliente.getNome(), cliente.getCpf(), cliente.getDataDeNascimento(),ClienteValidationService.getIdade(cliente.getDataDeNascimento())));
     }
 
     public static boolean deletarCliente(int id){

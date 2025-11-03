@@ -5,25 +5,16 @@ import entity.pessoa.Pessoa;
 
 import java.util.List;
 
-public class ClienteMaior extends Pessoa {
+public class ClienteMaior extends Cliente{
     private List<Conta> contas;
-    private int id;
 
     public ClienteMaior(String nome, String cpf, String dataDeNascimento, int idade, int id) {
-        super(nome, cpf, dataDeNascimento,idade);
-        this.id = id;
+        super(nome, cpf, dataDeNascimento,idade,id);
     }
     public ClienteMaior(String nome, String cpf, String dataDeNascimento, int idade) {
         super(nome, cpf, dataDeNascimento,idade);
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Override
     public String toString() {
