@@ -2,16 +2,29 @@ package repository.conta;
 
 import entity.conta.Conta;
 
-public class ContaPoupancaRepository implements InterfaceContaRepository{
+public class ContaPoupancaRepository {
 
-    @Override
+
     public void depositar(int id, double quantia) {
 
     }
 
-    @Override
+
     public void tranferir(Conta remetente, int destinatarioId, double quantia) {
 
     }
 
+    public void deletarConta(int id) {
+
+    }
+
+
+    public void updateEstado(int id, Conta conta) {
+
+    }
+
+
+    public void getConta(int id) {
+
+    }
 }

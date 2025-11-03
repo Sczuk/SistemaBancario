@@ -1,8 +1,8 @@
-package repository.conta.createConta.contaMenor;
+package repository.conta.createConta.contaPoupanca;
 
 import entity.conta.Conta;
 
-public class ContaCorrenteMenorRepository  {
+public class ContaPoupancaMenorRepository  {
 
     public void createConta(Conta conta) {
 
