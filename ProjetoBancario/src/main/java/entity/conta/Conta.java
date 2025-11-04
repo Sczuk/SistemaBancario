@@ -22,6 +22,10 @@ public abstract class Conta {
         this.id = id;
     }
 
+    public Conta(int id){
+        this.id = id;
+    }
+
     public double getSaldo() {
         return saldo;
     }

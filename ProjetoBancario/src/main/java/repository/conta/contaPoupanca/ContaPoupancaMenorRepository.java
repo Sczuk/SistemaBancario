@@ -1,4 +1,4 @@
-package repository.conta.createConta.contaPoupanca;
+package repository.conta.contaPoupanca;
 
 import config.ConnectionDataBase;
 import entity.conta.ContaPoupanca;
@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContaPoupancaMenorRepository  {
 
@@ -25,13 +27,13 @@ public class ContaPoupancaMenorRepository  {
         }
     }
 
-    public ContaPoupanca getContaPoupanca(int id) {
+    public static ContaPoupanca getContaPoupanca(ContaPoupanca conta) {
         String sql = "select * from contaPoupanca where id=?";
         ContaPoupanca contaPoupanca = null;
 
         try(Connection conn = ConnectionDataBase.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)){
-            stmt.setInt(1,id);
+            stmt.setInt(1,conta.getIdCliente());
             try(ResultSet rs = stmt.executeQuery()){
                 rs.next();
                 contaPoupanca = new ContaPoupanca(rs.getDouble("saldo"),rs.getDouble("saldoGuardado"),rs.getBoolean("estado"),rs.getInt("id"),rs.getInt("id_clienteMenor"));
@@ -41,4 +43,5 @@ public class ContaPoupancaMenorRepository  {
         }
         return contaPoupanca;
     }
+
 }

@@ -6,7 +6,10 @@ import entity.conta.ContaCorrente;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContaCorrenteRepository {
 
@@ -90,5 +93,20 @@ public class ContaCorrenteRepository {
 
     }
 
+    public static List<Integer> getIds(){
+        List<Integer> contas = new ArrayList<>();
+        String sql = "select id from contaCorrente";
 
+        try(Connection conn = ConnectionDataBase.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql)){
+            while (rs.next()){
+                contas.add(rs.getInt("id"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return contas;
+    }
 }

@@ -15,6 +15,10 @@ public class ContaPoupanca extends Conta{
         this.saldoGuardado = saldoGuardado;
     }
 
+    public ContaPoupanca(int id) {
+        super(id);
+    }
+
     public double getSaldoGuardado() {
         return saldoGuardado;
     }

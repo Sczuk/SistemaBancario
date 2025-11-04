@@ -20,6 +20,10 @@ public class ContaCorrente extends Conta{
         this.limeteSaldo = limeteSaldo;
     }
 
+    public ContaCorrente(int id) {
+        super(id);
+    }
+
     public double getLimeteSaldo() {
         return limeteSaldo;
     }

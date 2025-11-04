@@ -5,7 +5,10 @@ import entity.conta.ContaPoupanca;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContaPoupancaRepository {
 
@@ -101,6 +104,23 @@ public class ContaPoupancaRepository {
             e.printStackTrace();
         }
 
+    }
+
+    public static List<Integer> getIds(){
+        List<Integer> contas = new ArrayList<>();
+        String sql = "select id from contaPoupanca";
+
+        try(Connection conn = ConnectionDataBase.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery(sql)){
+            while (rs.next()){
+                contas.add(rs.getInt("id"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return contas;
     }
 
 }

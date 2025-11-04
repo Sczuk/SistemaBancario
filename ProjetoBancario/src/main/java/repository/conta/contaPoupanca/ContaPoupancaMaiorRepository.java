@@ -1,4 +1,4 @@
-package repository.conta.createConta.contaPoupanca;
+package repository.conta.contaPoupanca;
 
 import config.ConnectionDataBase;
 import entity.conta.ContaPoupanca;
