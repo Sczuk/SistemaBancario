@@ -45,4 +45,8 @@ public abstract class Conta {
     public void setStatus(boolean status) {
         this.status = status;
     }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
 }

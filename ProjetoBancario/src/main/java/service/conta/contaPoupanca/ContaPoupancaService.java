@@ -3,6 +3,7 @@ package service.conta.contaPoupanca;
 import entity.conta.ContaPoupanca;
 import entity.pessoa.clientes.Cliente;
 import repository.conta.ContaPoupancaRepository;
+import repository.conta.contaCorrente.ContaCorrenteMenorRepository;
 import repository.conta.contaPoupanca.ContaPoupancaMaiorRepository;
 import repository.conta.contaPoupanca.ContaPoupancaMenorRepository;
 
@@ -14,10 +15,11 @@ public class ContaPoupancaService {
             ContaPoupancaMaiorRepository.createConta(conta);
         }
         if(cliente.getIdade() < 18){
-            if(ContaPoupancaMenorRepository.getContaPoupanca(conta)==null){
+            if(!ContaPoupancaMenorRepository.getIdsMenor().contains(cliente.getId())){
                 ContaPoupancaMenorRepository.createConta(conta);
+            }else{
+                throw new IllegalArgumentException("Cliente ja criado");
             }
-            throw new IllegalArgumentException("Cliente ja criado");
         }
     }
 

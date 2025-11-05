@@ -46,6 +46,7 @@ public class ContaCorrente extends Conta{
                 "\nstatus: "+isStatus()+
                 "\nlimeteSaldo: " + limeteSaldo +
                 "\nlimeteSaque: " + limeteSaque+
-                "\nid: "+getId();
+                "\nid: "+getId()+
+                "\nid cliente: "+getIdCliente();
     }
 }

@@ -14,34 +14,11 @@ import java.util.List;
 public class ContaCorrenteRepository {
 
 
-    public static void depositar(ContaCorrente conta, double quantia) {
+    public static void depositar(ContaCorrente conta) {
         String sql = "update contaCorrente set saldo=? where id=?";
 
         try(Connection conn = ConnectionDataBase.getConnection();
         PreparedStatement stmt = conn.prepareCall(sql)){
-            stmt.setDouble(1,quantia);
-            stmt.setInt(2,conta.getId());
-            stmt.executeUpdate();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void tranferir(ContaCorrente conta, int idDestinatario, double quantiaDestinatario) {
-        String sql = "update contaCorrente set saldo=? where id=?";
-
-        try(Connection conn = ConnectionDataBase.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(sql)){
-            stmt.setDouble(1,quantiaDestinatario);
-            stmt.setInt(2,idDestinatario);
-            stmt.executeUpdate();
-        }catch (SQLException e){
-            e.printStackTrace();
-        }
-
-        try(Connection conn = ConnectionDataBase.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)){
             stmt.setDouble(1,conta.getSaldo());
             stmt.setInt(2,conta.getId());
             stmt.executeUpdate();
@@ -49,7 +26,6 @@ public class ContaCorrenteRepository {
             e.printStackTrace();
         }
 
-        //para fazer a tranferencia vou retornar o saldo atualizado para o remetente e a quantia para o destinatario
     }
 
     public static void sacar(ContaCorrente conta){
@@ -57,13 +33,12 @@ public class ContaCorrenteRepository {
 
         try(Connection conn = ConnectionDataBase.getConnection();
         PreparedStatement stmt = conn.prepareCall(sql)){
-            stmt.setInt(1,conta.getId());
-            stmt.setDouble(2,conta.getSaldo());
+            stmt.setDouble(1,conta.getSaldo());
+            stmt.setInt(2,conta.getId());
             stmt.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();
         }
-        //vou retirar o saldo e retonar o saldo atualizado
     }
 
     public static void deletarContaCorrente(ContaCorrente conta) {

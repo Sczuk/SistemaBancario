@@ -44,4 +44,21 @@ public class ContaPoupancaMenorRepository  {
         return contaPoupanca;
     }
 
+    public static List<Integer> getIdsMenor() {
+        String sql = "select id_clienteMenor from contapoupanca";
+        List<Integer> ids = new ArrayList<>();
+
+        try(Connection conn = ConnectionDataBase.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+            try(ResultSet rs = stmt.executeQuery()){
+                while(rs.next()) {
+                    ids.add(rs.getInt("id_clienteMenor"));
+                }
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return ids;
+    }
+
 }
